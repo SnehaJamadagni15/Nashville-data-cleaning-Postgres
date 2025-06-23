@@ -47,7 +47,7 @@ SELECT * FROM Nashville_housing;
 -------------------------------------------------------------------------------------------------------------------------------
 
 
-** FILL NULL VALUES IN PROPERTY ADDRESS USING SELF JOIN**
+## FILL NULL VALUES IN PROPERTY ADDRESS USING SELF JOIN
 
 ```sql
 select nh.parcelid, nh.propertyaddress, nash.parcelid, nash.propertyaddress,
@@ -66,9 +66,9 @@ where nh.parcelid = nash.parcelid
   and nh.propertyaddress IS NULL;
 ```
 
----
+--------------------------------------------------------------------------------------------------------------------------
 
-** SPLIT OWNER ADDRESS INTO STREET, CITY, AND STATE**
+## SPLIT OWNER ADDRESS INTO STREET, CITY AND STATE
 
 ```sql
 SELECT 
@@ -90,9 +90,9 @@ SET
   owner_state = TRIM(SPLIT_PART(owneraddress, ',', 3));
 ```
 
----
+------------------------------------------------------------------------------------------------------------
 
-** SPLIT PROPERTY ADDRESS INTO STREET AND CITY**
+## SPLIT PROPERTY ADDRESS INTO STREET AND CITY
 
 ```sql
 SELECT 
@@ -117,9 +117,9 @@ ALTER TABLE Nashville_housing
 RENAME COLUMN city TO Property_City;
 ```
 
----
+--------------------------------------------------------------------------------------------------------
 
-**STANDARDIZE SOLDASVACANT VALUES**
+## STANDARDIZE SOLDASVACANT VALUES
 
 ```sql
 UPDATE Nashville_housing
@@ -131,16 +131,20 @@ SET soldasvacant =
   END;
 ```
 
----
+------------------------------------------------------------------------------------------------
 
-** REMOVE DUPLICATES**
+## REMOVE DUPLICATES
 
 ```sql
 -- Convert SaleDate to date type if needed
 ALTER TABLE Nashville_housing 
 ALTER COLUMN SaleDate TYPE date;
+```
+-----------------------------------------------------------------------------------------------------------------
 
--- Identify duplicates
+## Identify duplicates
+
+```sql
 WITH row_num_cte AS (
   SELECT *,
          ROW_NUMBER() OVER (
@@ -152,8 +156,12 @@ WITH row_num_cte AS (
 SELECT *
 FROM row_num_cte
 WHERE row_num > 1;
+```
+-------------------------------------------------------------------------------------------------------------------
 
--- Delete duplicates
+## Delete Duplicates
+
+```sql
 WITH row_num_cte AS (
   SELECT uniqueid,
          ROW_NUMBER() OVER (
@@ -170,9 +178,9 @@ WHERE uniqueid IN (
 );
 ```
 
----
+----------------------------------------------------------------------------------------------------------
 
-** DROP UNUSED COLUMNS**
+## DROP UNUSED COLUMNS
 
 ```sql
 ALTER TABLE Nashville_housing
@@ -188,12 +196,12 @@ ALTER TABLE Nashville_housing
 DROP COLUMN saledate;
 ```
 
----
+------------------------------------------------------------------------------------------------------
 
-** FINAL CHECK**
+## FINAL CHECK
 
 ```sql
 SELECT * FROM Nashville_housing;
 ```
 
----
+--------------------------------------------------------------------------------------------------
