@@ -205,3 +205,6 @@ SELECT * FROM Nashville_housing;
 ```
 
 --------------------------------------------------------------------------------------------------
+##  Connect with Me
+
+If you enjoyed this project, check out more on my ([Sneha's_GitHub Profile](https://github.com/SnehaJamadagni15/Nashville-data-cleaning-Postgres/edit/main/README.md)) or connect with me on ([Sneha's LinkedIn](https://www.linkedin.com/in/sneha-jamadagni/))
